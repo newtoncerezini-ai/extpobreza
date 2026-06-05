@@ -12,20 +12,26 @@
   </head>
   <body>
     <header class="site-header">
-      <nav class="top-nav" aria-label="Navegação principal">
-        <a href="#inicio">Início</a>
-        <a href="#serie">Série histórica</a>
-        <a href="#brasil">Brasil</a>
-        <a href="#criterios">Critérios</a>
-        <a href="#validacao">Validação</a>
-        <a href="#perfil">Perfil</a>
-      </nav>
+      <div class="top-bar">
+        <a class="brand-mark" href="#inicio" aria-label="IGPE - início">
+          <img src="assets/igpe.png" alt="IGPE - Instituto de Gestão de Pernambuco" />
+        </a>
+        <nav class="top-nav" aria-label="Navegação principal">
+          <a href="#inicio">Início</a>
+          <a href="#serie">Série histórica</a>
+          <a href="#brasil">Brasil</a>
+          <a href="#criterios">Critérios</a>
+          <a href="#validacao">Validação</a>
+          <a href="#perfil">Perfil</a>
+        </nav>
+      </div>
     </header>
 
     <main>
       <section id="inicio" class="hero band">
         <div class="wrap hero-grid">
           <div class="hero-copy">
+            <img class="hero-logo" src="assets/igpe.png" alt="IGPE - Instituto de Gestão de Pernambuco" />
             <p class="eyebrow">PNAD Contínua • PPC 2021 • 2012 a 2025</p>
             <h1>Monitor da Extrema Pobreza em Pernambuco</h1>
             <p class="lead">
@@ -230,7 +236,10 @@
 
     <footer class="footer">
       <div class="wrap">
-        <span>Elaboração: IGPE/SEPLAG-PE, com base na PNAD Contínua/IBGE.</span>
+        <span class="footer-brand">
+          <img src="assets/igpe.png" alt="" aria-hidden="true" />
+          Elaboração: IGPE/SEPLAG-PE, com base na PNAD Contínua/IBGE.
+        </span>
         <span>Protótipo web interativo para divulgação pública.</span>
       </div>
     </footer>
