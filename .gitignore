@@ -1,0 +1,4 @@
+dashboard-*.png
+*.zip
+.vercel/
+node_modules/

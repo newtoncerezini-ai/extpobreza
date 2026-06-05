@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Monitor da Extrema Pobreza em Pernambuco</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="top-nav" aria-label="Navegação principal">
+        <a href="#inicio">Início</a>
+        <a href="#serie">Série histórica</a>
+        <a href="#brasil">Brasil</a>
+        <a href="#criterios">Critérios</a>
+        <a href="#validacao">Validação</a>
+        <a href="#perfil">Perfil</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="inicio" class="hero band">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">PNAD Contínua • PPC 2021 • 2012 a 2025</p>
+            <h1>Monitor da Extrema Pobreza em Pernambuco</h1>
+            <p class="lead">
+              Entre 2022 e 2025, Pernambuco reduziu a extrema pobreza com queda expressiva no
+              número de pessoas e no percentual da população nessa condição.
+            </p>
+          </div>
+          <div class="hero-panel" aria-label="Síntese do resultado de Pernambuco">
+            <div>
+              <span class="panel-number" id="heroPeople">626.148</span>
+              <span class="panel-label">pessoas deixaram a extrema pobreza</span>
+            </div>
+            <div class="panel-line">
+              <span>2022</span>
+              <strong>16,13%</strong>
+              <span>2025</span>
+              <strong>9,43%</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band summary-band" aria-label="Indicadores principais">
+        <div class="wrap metric-grid">
+          <article class="metric-card">
+            <span class="metric-value">626.148</span>
+            <span class="metric-label">pessoas saíram da extrema pobreza</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-value">41,1%</span>
+            <span class="metric-label">queda no número de pessoas</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-value">16,13% → 9,43%</span>
+            <span class="metric-label">queda da taxa entre 2022 e 2025</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-value">2º</span>
+            <span class="metric-label">maior redução absoluta do Brasil</span>
+          </article>
+          <article class="metric-card">
+            <span class="metric-value">4º</span>
+            <span class="metric-label">maior redução em pontos percentuais</span>
+          </article>
+        </div>
+        <div class="wrap chart-shell">
+          <div class="section-title-row">
+            <div>
+              <p class="eyebrow">Resultado principal</p>
+              <h2>Extrema pobreza em Pernambuco</h2>
+            </div>
+            <span class="tag">Pico em 2021 • menor taxa em 2025</span>
+          </div>
+          <div class="chart-box tall">
+            <canvas id="mainLineChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section id="serie" class="band light-band">
+        <div class="wrap two-column">
+          <div>
+            <p class="eyebrow">Série histórica</p>
+            <h2>Pernambuco na série da PNADc</h2>
+            <p>
+              A trajetória mostra a piora observada em 2021 e a redução contínua entre 2022 e
+              2025. Em 2025, Pernambuco alcança o menor percentual da série histórica da PNADc
+              para extrema pobreza usando o critério PPC 2021.
+            </p>
+            <div class="stat-list">
+              <div><strong id="peakYear">2021</strong><span>ano de maior taxa</span></div>
+              <div><strong id="lowestYear">2025</strong><span>menor percentual da série</span></div>
+              <div><strong id="seriesDrop">-14,04 p.p.</strong><span>queda desde o pico</span></div>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="seriesChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section id="brasil" class="band">
+        <div class="wrap">
+          <div class="section-title-row">
+            <div>
+              <p class="eyebrow">Comparação nacional</p>
+              <h2>Pernambuco no Brasil</h2>
+            </div>
+            <div class="controls">
+              <label>
+                Indicador
+                <select id="rankingMetric">
+                  <option value="Reducao_Pessoas">Redução em pessoas</option>
+                  <option value="Reducao_pp">Redução em pontos percentuais</option>
+                  <option value="Reducao_Percentual_Taxa">Redução percentual da taxa</option>
+                  <option value="Reducao_Percentual_Pessoas">Redução percentual de pessoas</option>
+                </select>
+              </label>
+              <label>
+                Região
+                <select id="regionFilter">
+                  <option value="Todas">Todas</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="ranking-layout">
+            <div class="chart-box ranking-box">
+              <canvas id="rankingChart"></canvas>
+            </div>
+            <aside class="side-note">
+              <h3>Pernambuco em destaque</h3>
+              <p id="rankingNote">
+                Pernambuco aparece entre os estados com maior redução absoluta de pessoas em
+                extrema pobreza no período 2022-2025.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="criterios" class="band light-band">
+        <div class="wrap">
+          <div class="section-title-row">
+            <div>
+              <p class="eyebrow">Critério antigo x atual</p>
+              <h2>A queda permanece com a linha mais rigorosa</h2>
+            </div>
+            <div class="segmented" role="group" aria-label="Selecionar critério">
+              <button class="active" data-criterion="current">PPC 2021 • US$ 3/dia</button>
+              <button data-criterion="old">PPC 2017 • US$ 2,15/dia</button>
+            </div>
+          </div>
+          <div class="two-column">
+            <div class="chart-box">
+              <canvas id="criterionChart"></canvas>
+            </div>
+            <div class="explain-panel">
+              <h3 id="criterionTitle">Critério atual: PPC 2021</h3>
+              <p id="criterionText">
+                A linha atual considera aproximadamente R$ 280 mensais por pessoa. Mesmo com
+                uma régua mais rigorosa, Pernambuco reduz a extrema pobreza entre 2022 e 2025.
+              </p>
+              <div class="mini-metrics">
+                <div><strong id="criterionStart">16,13%</strong><span>2022</span></div>
+                <div><strong id="criterionEnd">9,43%</strong><span>2025</span></div>
+                <div><strong id="criterionReduction">-6,70 p.p.</strong><span>redução</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="validacao" class="band">
+        <div class="wrap">
+          <div class="section-title-row">
+            <div>
+              <p class="eyebrow">Validação dos dados</p>
+              <h2>Microdados PNADc x relatório IPECE</h2>
+            </div>
+            <span class="tag">Percentuais próximos em toda a série</span>
+          </div>
+          <div class="two-column">
+            <div class="chart-box">
+              <canvas id="validationChart"></canvas>
+            </div>
+            <div class="method-panel">
+              <h3>Nota metodológica</h3>
+              <p>
+                Os dados agregam estimativas da PNAD Contínua de rendimento. A linha internacional
+                de extrema pobreza é definida em dólares por pessoa ao dia e convertida pela
+                Paridade do Poder de Compra, permitindo comparação do custo de vida entre países.
+              </p>
+              <p>
+                A validação compara o processamento local dos microdados com os percentuais
+                publicados pelo IPECE. As diferenças ficam pequenas e compatíveis com arredondamentos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="perfil" class="band profile-band">
+        <div class="wrap">
+          <p class="eyebrow">Próxima camada analítica</p>
+          <h2>Perfil da extrema pobreza</h2>
+          <p class="profile-intro">
+            Com os microdados abertos por pessoa e domicílio, esta seção pode revelar quais grupos
+            foram mais afetados e onde a política pública precisa atuar com mais precisão.
+          </p>
+          <div class="profile-grid">
+            <article><h3>Raça/cor</h3><p>Distribuição e taxa por grupos populacionais.</p></article>
+            <article><h3>Faixa etária</h3><p>Crianças, adolescentes, adultos e idosos.</p></article>
+            <article><h3>Sexo</h3><p>Diferenças entre homens e mulheres.</p></article>
+            <article><h3>Escolaridade</h3><p>Relação entre renda e anos de estudo.</p></article>
+            <article><h3>Ocupação</h3><p>Trabalho, informalidade e desocupação.</p></article>
+            <article><h3>Domicílios</h3><p>Chefia feminina, composição familiar e território.</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <span>Elaboração: IGPE/SEPLAG-PE, com base na PNAD Contínua/IBGE.</span>
+        <span>Protótipo web interativo para divulgação pública.</span>
+      </div>
+    </footer>
+  </body>
+</html>
